@@ -1,0 +1,60 @@
+query($githubUsername: String!) {
+    search (query: $githubUsername, type: USER, first: 1){
+      edges {
+        node {
+          ... on User {
+            avatarUrl
+            name
+            login
+            bio
+            company
+            email
+            location
+            followers {
+              totalCount
+            }
+            following {
+              totalCount
+            }
+            isHireable,
+            url
+            status {
+              emoji
+              message
+            }
+            repositories(first: 15) {
+              totalCount,
+              nodes {
+                name
+                url
+                description
+                languages(first: 10) {
+                  nodes {
+                    name
+                  }
+                }
+                primaryLanguage {
+                  name
+                }
+                forks {
+                  totalCount
+                }
+                issues {
+                  totalCount
+                }
+                stargazers {
+                  totalCount
+                }
+                watchers {
+                  totalCount
+                }
+                pullRequests {
+                  totalCount
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+}
