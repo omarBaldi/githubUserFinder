@@ -1,9 +1,8 @@
 <template>
-    <v-card flat class="d-flex flex-column align-center justify-center white--text" color="transparent" id="cardUserInfo">
-
+    <v-card flat class="d-flex flex-column align-start justify-center white--text" color="transparent" id="cardUserInfo">
         <v-avatar
             tile
-            class="ml-n10 mb-4"
+            class="ml-4 mb-2"
             :size="200"
             id="imageUser"
             >

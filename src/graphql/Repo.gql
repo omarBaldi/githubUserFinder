@@ -1,0 +1,26 @@
+query($githubUsername: String!, $githubReponame: String!) {
+    repository(owner: $githubUsername, name: $githubReponame) {
+        refs(first: 30, refPrefix: "refs/heads/") {
+            nodes {
+                name
+                target {
+                    ... on Commit {
+                        history(first: 30) {
+                            totalCount
+                            nodes {
+                                url
+                                message
+                                committedDate
+                                pushedDate
+                                committer {
+                                    name
+                                    avatarUrl
+                                }
+                            }
+                        }
+                    }   
+                }
+            }
+        }
+    }
+}
