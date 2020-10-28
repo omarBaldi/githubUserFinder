@@ -1,24 +1,15 @@
-# github-gql
+### GRAPHQL VISUALIZATION DATA APPLICATION
 
-## Project setup
-```
-npm install
-```
+# Description
+This application allows you to search every GitHub user and display his informations 
+as well as his personal repositories and their respective commits using the power of 
+GraphQL combined with the GitHub API.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Tools used (Front-End)
+1. Vue (Vue CLI), VueRouter
+2. Vuetify (UI framework)
+3. Apollo
+4. GraphQL
+4. GitHub API
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
