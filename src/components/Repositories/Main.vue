@@ -25,26 +25,11 @@
         id="commitsSidebar"
         >   
 
-            <div v-if="$apollo.queries.repository.loading">
-                <Loading />
-            </div>
-
             <!-- Commits timeline -->
             <v-timeline
             dense
             dark
             >
-
-                <!-- <v-btn
-                class="mx-2"
-                fab
-                dark
-                small
-                
-                color="primary"
-                >
-                    <v-icon dark>mdi-minus</v-icon>
-                </v-btn> -->
 
                 <v-timeline-item
                 class="mb-4"
@@ -75,6 +60,10 @@
             </v-timeline>
 
         </v-navigation-drawer>
+
+        <div v-if="$apollo.queries.repository.loading">
+            <Loading />
+        </div>
 
     </v-row>
 </template>
@@ -108,6 +97,11 @@ export default {
     created() {
         this.currentUser = this.$route.params.userName;
     },
+    watch: {
+        commits() {
+            this.isSidebarOpen = true;
+        }
+    },
     apollo: {
         repository: {
             query: repoSchemaGQL,
@@ -129,7 +123,6 @@ export default {
         open(repoName) {
             this.currentRepoName = repoName;
             this.$apollo.queries.repository.refetch({ githubUsername: this.currentUser, githubReponame: this.currentRepoName });
-            this.isSidebarOpen = true;
         }
     }
 }
