@@ -23,20 +23,35 @@
         right
         width="auto"
         id="commitsSidebar"
+        v-if="currentData"
         >   
 
-            <!-- Commits timeline -->
             <v-timeline
             dense
             dark
             >
 
+                <!-- Select branch button -->
+                <v-row class="justify-end">
+                    <v-col cols="7" class="mr-5 mt-n3">
+                        <v-select
+                        prepend-icon="mdi-source-branch"
+                        dark
+                        solo
+                        :items="branchesSelectButton"
+                        :label="branchesSelectButton[0]"
+                        @change="changeBranchData($event)"
+                        ></v-select>
+                    </v-col>
+                </v-row>
+
+                <!-- Timeline commits -->
                 <v-timeline-item
                 class="mb-4"
                 color="purple"
                 icon-color="red"
                 small
-                v-for="(commit, index) in commits"
+                v-for="(commit, index) in currentData.commits"
                 :key="index"
                 >
 
@@ -65,6 +80,7 @@
             <Loading />
         </div>
 
+
     </v-row>
 </template>
 
@@ -91,7 +107,9 @@ export default {
             isSidebarOpen: false,
             currentUser: null,
             currentRepoName: null,
-            commits: null
+            branchesSelectButton: null,
+            commits: null,
+            currentData: null
         }
     },
     created() {
@@ -115,14 +133,36 @@ export default {
                 return !this.currentRepoName;
             },
             result(result) {
-                this.commits = result.data.repository.refs.nodes[0].target.history.nodes;
+
+                //Create array of objects with the branch name and its commits
+                const branchesCommits = result.data.repository.refs.nodes;
+                const branchData = branchesCommits.map(branch => {
+                    return {
+                        branchName: branch.name,
+                        commits: branch.target.history.nodes
+                    }
+                });
+                
+                //Store array
+                this.commits = branchData;
+
+                this.currentData = this.commits[0];
+
+                //Retrieve all the branches for the repository and create select button
+                this.branchesSelectButton = branchData.map(x => x.branchName);
+
 		    }
         },
     },
     methods: {
         open(repoName) {
-            this.currentRepoName = repoName;
-            this.$apollo.queries.repository.refetch({ githubUsername: this.currentUser, githubReponame: this.currentRepoName });
+            if (repoName !== this.currentRepoName) {
+                this.currentRepoName = repoName;
+            }
+        },
+        changeBranchData(selectedBranchName) {
+            const findDataBranch = this.commits.find(x => x.branchName === selectedBranchName);
+            this.currentData = findDataBranch;
         }
     }
 }
