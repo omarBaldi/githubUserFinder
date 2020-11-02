@@ -1,11 +1,13 @@
 <template>
   <v-container fluid class="container__searchUser">
+
     <v-row :class="flexCenter" class="mb-5">
       <v-icon dark :size="70" class="mb-2">mdi-github</v-icon>
       <h2 class="intro font-weight-light">Find github user</h2>
     </v-row>
+
     <v-row :class="flexCenter">
-      <v-col cols="12" sm="6" md="3">
+      <v-col cols="10" sm="6" md="4" lg="3">
         <v-text-field
             solo
             class="input__searchUser"
@@ -14,6 +16,7 @@
         ></v-text-field>
       </v-col>
     </v-row>
+
   </v-container>
 </template>
 

@@ -17,7 +17,7 @@
 
         <Commits 
             :currentRepoName="currentRepoName"
-            @loadingFinished="isLoading = !isLoading"
+            @loadingFinished="isLoading = false"
         />
        
         <div v-if="isLoading">
