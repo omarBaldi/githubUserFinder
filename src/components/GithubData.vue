@@ -33,6 +33,9 @@ export default {
             type: Object,
             required: true
         }
+    },
+    created() {
+        console.log(this.data)
     }
 }
 </script>
